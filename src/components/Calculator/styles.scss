@@ -15,6 +15,12 @@ $button-margin: 3px;
       width: calc(#{$button-width} * 2 + #{$button-margin} * 2);
     }
   }
+  .filter {
+    padding: $button-margin;
+  }
+  .alert {
+    margin: $button-margin;
+  }
   .calculator-container {
     display: flex;
     .numbers {
@@ -30,6 +36,7 @@ $button-margin: 3px;
     display: flex;
     button {
       width: 100%;
+      text-transform: uppercase;
     }
   }
   .reset {
