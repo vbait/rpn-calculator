@@ -1,0 +1,15 @@
+{
+  "extends": ["airbnb", "airbnb/hooks", "prettier", "prettier/react"],
+  "parser": "babel-eslint",
+  "plugins": ["react", "jsx-a11y", "import", "react-hooks"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "rules": {
+    "linebreak-style": 0,
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "object-curly-newline": "off",
+    "comma-dangle": [2, "always-multiline"]
+  }
+}

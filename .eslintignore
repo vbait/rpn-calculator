@@ -1,0 +1,4 @@
+src/serviceWorker.js
+src/**/*.stories.jsx
+scripts/
+config/
