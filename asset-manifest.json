@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/rpn-calculator/static/css/main.98d62ea0.chunk.css",
+    "main.js": "/rpn-calculator/static/js/main.ceab0d41.chunk.js",
+    "main.js.map": "/rpn-calculator/static/js/main.ceab0d41.chunk.js.map",
+    "runtime-main.js": "/rpn-calculator/static/js/runtime-main.6c8b75eb.js",
+    "runtime-main.js.map": "/rpn-calculator/static/js/runtime-main.6c8b75eb.js.map",
+    "static/js/2.aed250e8.chunk.js": "/rpn-calculator/static/js/2.aed250e8.chunk.js",
+    "static/js/2.aed250e8.chunk.js.map": "/rpn-calculator/static/js/2.aed250e8.chunk.js.map",
+    "index.html": "/rpn-calculator/index.html",
+    "precache-manifest.e8914111098c8ac7f4e6c8ac641a005d.js": "/rpn-calculator/precache-manifest.e8914111098c8ac7f4e6c8ac641a005d.js",
+    "service-worker.js": "/rpn-calculator/service-worker.js",
+    "static/css/main.98d62ea0.chunk.css.map": "/rpn-calculator/static/css/main.98d62ea0.chunk.css.map",
+    "static/js/2.aed250e8.chunk.js.LICENSE.txt": "/rpn-calculator/static/js/2.aed250e8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c8b75eb.js",
+    "static/js/2.aed250e8.chunk.js",
+    "static/css/main.98d62ea0.chunk.css",
+    "static/js/main.ceab0d41.chunk.js"
+  ]
+}
