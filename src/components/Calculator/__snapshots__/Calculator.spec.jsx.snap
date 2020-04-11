@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="calculator"
+>
+  <div
+    className="filter"
+  >
+    <div
+      className="form-check"
+    >
+      <input
+        checked={false}
+        className="form-check-input"
+        disabled={false}
+        id="id_readonly"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="form-check-label"
+        htmlFor="id_readonly"
+        title=""
+      >
+        Readonly
+      </label>
+    </div>
+  </div>
+  <div
+    className="display"
+  >
+    <input
+      className="form-control"
+      onChange={[Function]}
+      readOnly={false}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="display"
+  >
+    <textarea
+      className="form-control"
+      disabled={true}
+      readOnly={true}
+      rows="2"
+      value=""
+    />
+  </div>
+  <div
+    className="reset"
+  >
+    <button
+      className="btn btn-danger"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      &lt;-
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      CE
+    </button>
+    <button
+      className="btn btn-danger"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      C
+    </button>
+  </div>
+  <div
+    className="calculator-container"
+  >
+    <div
+      className="numbers"
+    >
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        7
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        8
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        9
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        4
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        5
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        6
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        1
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        2
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        3
+      </button>
+      <button
+        className="double btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        0
+      </button>
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        .
+      </button>
+    </div>
+    <div
+      className="operations"
+    >
+      <button
+        className="btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        +
+      </button>
+      <button
+        className="btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        -
+      </button>
+      <button
+        className="btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        *
+      </button>
+      <button
+        className="btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        /
+      </button>
+    </div>
+  </div>
+  <div
+    className="manipulate"
+  >
+    <button
+      className="btn btn-info"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      space
+    </button>
+    <button
+      className="btn btn-info"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      apply
+    </button>
+  </div>
+</div>
+`;

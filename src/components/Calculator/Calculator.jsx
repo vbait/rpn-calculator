@@ -1,24 +1,35 @@
-import React, { useState, useCallback, useRef } from 'react';
+/* eslint-disable react/no-array-index-key */
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useMemo,
+} from 'react';
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
-import RPNCalculator, { Operator } from '../../services/RPNCalculator';
+import { chunkArray } from './utils';
+import RPNCalculator from './RPNCalculator';
+import Operator from './Operator';
 import { NUMBERS } from './constants';
 import './styles.scss';
 
 const calculator = new RPNCalculator();
-calculator.addOperators([
+calculator.addOperators(
   new Operator('+', (a, b) => a + b),
-  new Operator('-', (a, b) => b - a),
+  new Operator('-', (a, b) => a - b),
   new Operator('*', (a, b) => a * b),
-  new Operator('/', (a, b) => b / a),
-]);
+  new Operator('/', (a, b) => a / b),
+);
 
 const separator = calculator.separator();
+const separatorReplaceRegex = new RegExp(`(${separator.regex}){2,}`, 'g');
 
-function Calculator() {
+function Calculator({ operators: additionalOperators }) {
   const inputRef = useRef();
-  const [operators] = useState(calculator.operators());
+  const [operators, setOperators] = useState(calculator.operators());
   const [numbers, setNumbers] = useState(calculator.numbers());
   const [value, setValue] = useState('');
   const [error, setError] = useState();
@@ -30,22 +41,12 @@ function Calculator() {
 
   const handleChange = useCallback(
     (v) => {
-      const formatted = v.replace(/  +/g, ' ');
+      const formatted = v.replace(separatorReplaceRegex, separator.name);
       setError();
       setValue(formatted);
-    },
-    [setValue, setError],
-  );
-
-  const handleAnd = useCallback(
-    (v) => {
-      setError();
-      setValue((state) => {
-        return state + v;
-      });
       inputRef.current.focus();
     },
-    [setValue, inputRef],
+    [setValue, setError, inputRef],
   );
 
   const handleApply = useCallback(() => {
@@ -61,7 +62,7 @@ function Calculator() {
   const handleBackSpace = useCallback(() => {
     setError();
     setValue((state) => {
-      return state;
+      return state.slice(0, -1);
     });
     inputRef.current.focus();
   }, [setError, setValue]);
@@ -78,9 +79,35 @@ function Calculator() {
     setNumbers(calculator.numbers());
   }, [setValue]);
 
+  const handleInputKeyUp = useCallback(
+    (event) => {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        handleApply();
+      }
+    },
+    [handleApply],
+  );
+
+  useEffect(() => {
+    const input = inputRef.current;
+    input.addEventListener('keyup', handleInputKeyUp);
+    return () => {
+      input.removeEventListener('keyup', handleInputKeyUp);
+    };
+  }, [inputRef, handleInputKeyUp]);
+
+  useEffect(() => {
+    calculator.addOperators(...additionalOperators);
+    setOperators(calculator.operators());
+  }, [additionalOperators, setOperators]);
+
+  const chunkedOperators = useMemo(() => {
+    return chunkArray(operators, 4);
+  }, [operators]);
+
   return (
     <div className="calculator">
-      {!!error && <Alert variant="danger">{error}</Alert>}
       <div className="filter">
         <Form.Check
           type="checkbox"
@@ -101,46 +128,59 @@ function Calculator() {
         />
       </div>
       <div className="display">
-        <div className="form-control">{numbers.join(' ')}</div>
+        <textarea
+          className="form-control"
+          readOnly
+          rows="2"
+          disabled
+          value={numbers.join(' ')}
+        />
+        {!!error && <Alert variant="danger">{error}</Alert>}
       </div>
       <div className="reset">
-        <Button variant="danger" onClick={handleBackSpace}>
+        <Button variant="danger" onClick={handleBackSpace} disabled={!value}>
           {'<-'}
         </Button>
-        <Button variant="danger" onClick={handleClear}>
+        <Button variant="danger" onClick={handleClear} disabled={!value}>
           CE
         </Button>
-        <Button variant="danger" onClick={handleReset}>
+        <Button
+          variant="danger"
+          onClick={handleReset}
+          disabled={!numbers.length && !value}
+        >
           C
         </Button>
       </div>
       <div className="calculator-container">
         <div className="numbers">
           {NUMBERS.map((v) => (
-            <Button key={v} onClick={() => handleAnd(v)}>
+            <Button key={v} onClick={() => handleChange(value + v)}>
               {v}
             </Button>
           ))}
-          <Button onClick={() => handleAnd(0)} className="double">
+          <Button onClick={() => handleChange(`${value}0`)} className="double">
             0
           </Button>
-          <Button onClick={() => handleAnd('.')}>.</Button>
+          <Button onClick={() => handleChange(`${value}.`)}>.</Button>
         </div>
-        <div className="operations">
-          {operators.map((operator) => (
-            <Button
-              key={operator}
-              onClick={() => handleAnd(operator)}
-              variant="secondary"
-            >
-              {operator}
-            </Button>
-          ))}
-        </div>
+        {chunkedOperators.map((rows, index) => (
+          <div key={index} className="operations">
+            {rows.map((operator) => (
+              <Button
+                key={operator}
+                onClick={() => handleChange(value + operator)}
+                variant="secondary"
+              >
+                {operator}
+              </Button>
+            ))}
+          </div>
+        ))}
       </div>
       <div className="manipulate">
         <Button
-          onClick={() => handleAnd(separator)}
+          onClick={() => handleChange(value + separator.name)}
           disabled={!value}
           variant="info"
         >
@@ -157,5 +197,13 @@ function Calculator() {
     </div>
   );
 }
+
+Calculator.defaultProps = {
+  operators: [],
+};
+
+Calculator.propTypes = {
+  operators: PropTypes.arrayOf(PropTypes.instanceOf(Operator)),
+};
 
 export default Calculator;

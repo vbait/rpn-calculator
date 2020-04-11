@@ -18,8 +18,18 @@ $button-margin: 3px;
   .filter {
     padding: $button-margin;
   }
-  .alert {
-    margin: $button-margin;
+  .display {
+    position: relative;
+    textarea {
+      height: 50px;
+      min-height: 50px;
+    }
+    .alert {
+      position: absolute;
+      top: 0;
+      left: $button-margin;
+      width: calc(100% - #{$button-margin} * 2);
+    }
   }
   .calculator-container {
     display: flex;
