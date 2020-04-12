@@ -50,8 +50,9 @@ function Calculator({ operators: additionalOperators }) {
   );
 
   const handleApply = useCallback(() => {
+    if (!value) return;
     try {
-      calculator.push(value.trim());
+      calculator.eval(value.trim());
       setValue('');
       setNumbers(calculator.numbers());
     } catch (err) {

@@ -25,7 +25,7 @@ describe('RPN Calculator initialization', () => {
 
   test('should add numbers and reset calculator', () => {
     const calculator = new RPNCalculator();
-    calculator.push('1 2');
+    calculator.eval('1 2');
     expect(calculator.numbers()).toEqual([1, 2]);
     calculator.reset();
     expect(calculator.numbers()).toEqual([]);
@@ -44,36 +44,46 @@ describe('RPN Calculator validation', () => {
   });
 
   test('single line input is valid', () => {
-    calculator.push('5 5 5 8 + + -');
+    calculator.eval('5 5 5 8 + + -');
     expect(calculator.numbers()).toEqual([-13]);
   });
 
   test('multiple lines input is valid', () => {
-    calculator.push('5 5 5 8 + + -');
+    calculator.eval('5 5 5 8 + + -');
     expect(calculator.numbers()).toEqual([-13]);
-    calculator.push('1 1 +');
+    calculator.eval('1 1 +');
     expect(calculator.numbers()).toEqual([-13, 2]);
   });
 
   test('single line input is invalid', () => {
-    expect(() => calculator.push('5 ')).toThrow(Error);
-    expect(() => calculator.push('a')).toThrow(Error);
-    expect(() => calculator.push('-')).toThrow(Error);
-    expect(() => calculator.push('1 2 *')).toThrow(Error);
+    expect(() => calculator.eval('5 ')).toThrow(Error);
+    expect(() => calculator.eval('a')).toThrow(Error);
+    expect(() => calculator.eval('-')).toThrow(Error);
+    expect(() => calculator.eval('1 2 *')).toThrow(Error);
   });
 
   test('multiple lines input is invalid', () => {
-    calculator.push('5 5 +');
+    calculator.eval('5 5 +');
     expect(calculator.numbers()).toEqual([10]);
-    expect(() => calculator.push('+')).toThrow(Error);
-    expect(() => calculator.push('a')).toThrow(Error);
+    expect(() => calculator.eval('+')).toThrow(Error);
+    expect(() => calculator.eval('a')).toThrow(Error);
     expect(calculator.numbers()).toEqual([10]);
-    calculator.push('5');
+    calculator.eval('5');
     expect(calculator.numbers()).toEqual([10, 5]);
   });
 
+  test('should work correct with float values', () => {
+    calculator.eval('4.5 5.5 +');
+    expect(calculator.numbers()).toEqual([10]);
+  });
+
+  test('should work correct with negative values', () => {
+    calculator.eval('-5 5 +');
+    expect(calculator.numbers()).toEqual([0]);
+  });
+
   test('error when dividing to zero', () => {
-    expect(() => calculator.push('10 0 /')).toThrow(Error);
+    expect(() => calculator.eval('10 0 /')).toThrow(Error);
   });
 });
 
@@ -91,17 +101,17 @@ describe('RPN Calculator custom operations', () => {
     calculator.addOperators(
       new Operator('custom', (a, b, c) => a + b + c, 'custom', 3),
     );
-    calculator.push('1 2 3 custom');
+    calculator.eval('1 2 3 custom');
     expect(calculator.numbers()).toEqual([6]);
     calculator.reset();
-    expect(() => calculator.push('1 2 custom')).toThrow(Error);
+    expect(() => calculator.eval('1 2 custom')).toThrow(Error);
   });
 
   test('error when custom operator with invalid regex', () => {
     calculator.addOperators(
       new Operator('custom', (a, b, c) => a + b + c, 'bad', 3),
     );
-    expect(() => calculator.push('1 2 3 custom')).toThrow(Error);
-    expect(() => calculator.push('1 2 3 bad')).toThrow(Error);
+    expect(() => calculator.eval('1 2 3 custom')).toThrow(Error);
+    expect(() => calculator.eval('1 2 3 bad')).toThrow(Error);
   });
 });

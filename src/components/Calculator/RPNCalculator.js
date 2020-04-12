@@ -80,7 +80,7 @@ function Calculator() {
    * @param {string} input String with operators and operands
    * @throws Will throw an error if the operators are not valid or operands are not Number.
    */
-  this.push = (input) => {
+  this.eval = (input) => {
     this.validate(input);
     const temp = [...stack];
     input.split(SEPARATOR.name).forEach((value) => {
@@ -91,16 +91,18 @@ function Calculator() {
         }
         const args = temp.splice(-1 * countOperands, countOperands);
         const result = parseFloat(fn(...args));
-        if (Number.isNaN(result) || result === Infinity) {
-          throw Error(
-            `Cannot use operator "${value}" to values ${args.join(' ')}.`,
+        if (!Number.isFinite(result)) {
+          throw RangeError(
+            `Cannot use operator "${value}" to value(s): ${args.join(' ')}.`,
           );
         }
         temp.push(result);
-      } else if (Number.isNaN(value) || Number.isNaN(parseFloat(value))) {
-        throw Error(`Value "${value}" is not a number.`);
       } else {
-        temp.push(parseFloat(value));
+        const result = parseFloat(value);
+        if (!Number.isFinite(result)) {
+          throw RangeError(`Value "${value}" is not a number.`);
+        }
+        temp.push(result);
       }
     });
     stack.splice(0, stack.length, ...temp);
@@ -113,7 +115,7 @@ function Calculator() {
    */
   this.validate = (input) => {
     if (!regex.test(input)) {
-      throw Error('Input value is not valid.');
+      throw TypeError('Input value is not valid.');
     }
   };
 
