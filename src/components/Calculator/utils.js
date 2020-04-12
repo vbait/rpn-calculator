@@ -44,3 +44,5 @@ function createValidatorRegExp(operators, separator) {
 }
 
 export { chunkArray, createValidatorRegExp };
+
+// ^((-?\d+\.?\d* )|(-?\d*\.?\d+ )|((sin|cos|\-|\*) ))*((-?\d+\.?\d*)|(-?\d*\.?\d+)|(sin|cos|\-|\*))$

@@ -128,5 +128,3 @@ function Calculator() {
 }
 
 export default Calculator;
-
-// ^((-?\d+\.?\d* )|(-?\d*\.?\d+ )|((sin|cos|\-|\*) ))*((-?\d+\.?\d*)|(-?\d*\.?\d+)|(sin|cos|\-|\*))$
