@@ -24,7 +24,7 @@ function Calculator() {
    * @type {Object.<string, Operator>}
    */
   const operators = {}; // all operators mapped by name
-  let regex = new RegExp(); // all operators mapped by name
+  let regex = new RegExp(); // regular expression to validate input string
 
   /**
    * Validate if operator is presented
